@@ -1,30 +1,249 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Template</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <title>pro-cv</title>
     <style>
-        body{
-         background-color: red
+
+        @page { margin: 0px; padding:0px; size: A4; }
+
+        body, html{
+            width: 100%;
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
         }
+        .avatar{
+            display: block;
+            border: 4px solid #aeae03;
+            background-color: #dfdfdf;
+            margin: 20px auto;
+            margin-bottom: 30px;
+            font-size: 0;
+            width: 130px;
+            height: 140px;
+            
+        }
+        .icon{
+            width: 12px;
+            height: 12px;
+        }
+        .template, table{
+            height: 542px;
+            width:  100%;
+            /* to centre page on screen*/
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+        .side-title{
+          text-transform: uppercase;
+          font-size: 12.5px;
+        }
+        .experiences{
+            margin: 12px;
+            padding: 20px;
+        }
+        .experience-item{
+          padding: 12px 12px;
+          border-bottom: .5px solid #dfdfdf;
+        }
+        ul, li{
+            list-style: none;
+            padding: 0;
+        }
+        .name{
+            font-size:   26px;
+            font-weight: 700;
+            line-height: 20px;
+
+        }
+        .text-muted{
+            color: #5d5d5d;
+        }
+        .fw-bolder{
+            font-weight: bolder !important;
+            font-size: 13px !important;
+            text-transform: uppercase !important;
+        }
+        .jobTitle{
+            padding: auto 6px;
+            width: 100%;
+            text-align: center;
+            height: 80px;
+            padding-top: 16px;
+
+
+        }
+        .jobName{
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            line-height: 16px;
+        }
+        .title{
+            text-transform: uppercase;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .side{
+            width: 100%;
+            height: 1104.5px;
+            max-height: 1104.5px;
+            color: #FFFFFF;
+            padding: 8px;
+        }
+        .body{
+           width:100%;
+           height: 1104.5px;
+           max-height: 1104.5px;
+        }
+       
+        .wrapper{
+            width: 100%;
+            height: 3px;
+            background-color: #e8e8e8;
+            margin-top: -2px;
+            border-radius: 0;
+            margin: 2px 0;
+            
+        }
+        .skill-level{
+                height: 3px;
+                width: 120px;
+                background-color: #f4f1de;
+                font-size: 0px;
+            }
+        .educations{
+            margin: 12px;
+            padding: 20px;
+        }
+        .education-item{
+            margin-bottom: 8px;
+          border-bottom: .5px solid #dfdfdf;
+          padding-bottom: 5px;
+
+        }
+        
+        .competences{
+            margin-top: 30px;
+
+        }
+        .langues{
+            margin-top: 30px;
+        }
+
     </style>
 </head>
 <body>
+    <div class="template" >
+        <table class="w-100" style="position: absolute; left:0;">
+            <tr class="w-100">
+                <td style="width: 26%">
+                    <div class="side" th:style="'background-color:'+${theme.colors.primary}">
+                        <img th:src="${header.avatar.remoteUrl}"  class="avatar" />
+                      <div class="coord">
+                         <ul>
+                            <li>
+                                <img src="../static/images/phone.png" class="icon" alt="" />
+                                <span th:text="${header.phone}"></span>
+                            </li>
+                            <li style="margin: 6px 0;" >
+                                <img src="../static/images/email.png" class="icon"  alt="" />
+                                <span th:text="${header.email}"></span>
+                            </li>
+                            <li >
+                                <img src="../static/images/location.png" class="icon"  alt="" />
+                                <span th:text="${header.country}" ></span>
+                                <span th:text="${header.city}" ></span>
+                            </li>
+                         </ul>
+                      </div>
 
-<h1>This is just a sample html page</h1>
+                      <div class="competences">
+                        <h3 class="side-title">Compétences</h3>
+                        <ul style="width: 100%">
+                           <li style="margin-top: 6px;" th:each="skill: ${skills}">
+                            <span th:text="${skill.name}"></span>
+                            <div class="wrapper">
+                                <div class="skill-level" th:style="'background-color:'+${theme.colors.muted}">.</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
 
-<h2>Below are the details that were passed to the html page</h2>
+                     <div class="langues">
+                        <h3 class="side-title">Langues</h3>
+                        <ul style="width: 100%;">
+                           <li th:each="lang: ${languages}">
+                            <span th:text="${lang.name}"></span>
+                            <div class="wrapper">
+                                <div class="skill-level" th:style="'background-color:'+${theme.colors.muted}+';'+'width:'+${lang.level}">-</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                    </div>
+                </td>
+                <td style="width: 74%">
+                    <div class="body">
+                       
+                    <div class="jobTitle" th:style="'background-color:'+${theme.colors.secondary}">
+                       <h3 class="name">
+                         <span th:text="${header.firstName}"></span>
+                         <span th:text="${header.lastName}"></span>
+                       </h3>
+                       <h6 class="jobName" th:text="${header.jobTitle}" ></h6>
+                    </div>
+                     <div class="experiences">
+                        <h3 class="title">Expériences Professionnelles</h3>
+                         <div class="experience-item" th:each="exp : ${experiences}">
+                            <div class="text-muted">
+                                <span class="fw-bolder" style="font-size: 13px;">-</span>
+                                <span th:text="${exp.startDate}"></span> - 
+                                <span th:text="${exp.startDate}"></span> |
+                                <span th:text="${exp.country}"></span> -
+                                <span th:text="${exp.city}"></span>
+                            </div>
+                            <div class="ps-2 my-4">
+                                <div>
+                                  <span class="fw-bolder" th:text="${exp.jobTitle}"></span> | 
+                                  <span th:text="${exp.employer}"></span>
+                                 </div>
+                                 <div th:text="${exp.description}">
+                                  
+                                 </div>
+                            </div>
+                         </div>
+                     </div>
 
-<p th:text="${'Name    : ' + name}"></p>
-<p th:text="${'Age     :' + age}"></p>
-<p th:text="${'Country : ' + country}"></p>
+                     <div class="educations">
+                        <h3 class="title">Educations</h3>
+                         <div class="education-item" th:each="edu : ${educations}">
+                            <div>
+                                <span class="text-muted" th:text="${edu.month} "></span>
+                                <span class="text-muted" th:text="${edu.year} "></span>
 
-<p><b>You can create the page the way you wish to have your PDF file using HTML tags</b></p>
-
-<p><b>Bootstrap can be added to design. Images can be added. All according to your preference</b></p>
-
+                            </div>
+                            <div class="fw-bolder my-3" >
+                                <span class="text-muted" th:text="${edu.diplome}"></span> | 
+                                <span th:text="${edu.domaine}"></span>
+                            </div>
+                            <div class="my-1">
+                                <span th:text="${edu.school} | "></span>
+                                <span th:text="${edu.adresse}"></span>
+                            </div>
+                         </div>
+                     </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
 

@@ -1,0 +1,15 @@
+com\blog\example\CreatePDF\Controller\PDFGeneratorController.class
+com\blog\example\CreatePDF\dto\Education.class
+com\blog\example\CreatePDF\dto\Details.class
+com\blog\example\CreatePDF\dto\Header.class
+com\blog\example\service\FileStorageService.class
+com\blog\example\CreatePDF\dto\Avatar.class
+com\blog\example\CreatePDF\dto\Skill.class
+com\blog\example\CreatePDF\Configuration\PDFThymeleafConfiguration.class
+com\blog\example\CreatePDF\CreatePdfApplication.class
+com\blog\example\CreatePDF\dto\UploadPictureResponse.class
+com\blog\example\CreatePDF\dto\Theme.class
+com\blog\example\CreatePDF\dto\Resume.class
+com\blog\example\CreatePDF\dto\Language.class
+com\blog\example\CreatePDF\dto\Experience.class
+com\blog\example\CreatePDF\dto\ColorPalet.class
