@@ -52,10 +52,7 @@
           padding: 12px 12px;
           border-bottom: .5px solid #dfdfdf;
         }
-        ul, li{
-            list-style: none;
-            padding: 0;
-        }
+
         .name{
             font-size:   26px;
             font-weight: 700;
@@ -75,7 +72,7 @@
             width: 100%;
             text-align: center;
             height: 80px;
-            padding-top: 16px;
+            padding-top: 14px;
 
 
         }
@@ -147,7 +144,7 @@
                     <div class="side" th:style="'background-color:'+${theme.colors.primary}">
                         <img th:src="${header.avatar.remoteUrl}"  class="avatar" />
                       <div class="coord">
-                         <ul>
+                         <ul class="list-unstyled">
                             <li>
                                 <img src="../static/images/phone.png" class="icon" alt="" />
                                 <span th:text="${header.phone}"></span>
@@ -166,7 +163,7 @@
 
                       <div class="competences">
                         <h3 class="side-title">Compétences</h3>
-                        <ul style="width: 100%">
+                        <ul style="width: 100%" class="list-unstyled">
                            <li style="margin-top: 6px;" th:each="skill: ${skills}">
                             <span th:text="${skill.name}"></span>
                             <div class="wrapper">
@@ -178,8 +175,8 @@
 
                      <div class="langues">
                         <h3 class="side-title">Langues</h3>
-                        <ul style="width: 100%;">
-                           <li th:each="lang: ${languages}">
+                        <ul style="width: 100%;" class="list-unstyled">
+                           <li th:each="lang: ${languages}" >
                             <span th:text="${lang.name}"></span>
                             <div class="wrapper">
                                 <div class="skill-level" th:style="'background-color:'+${theme.colors.muted}+';'+'width:'+${lang.level}">-</div>
@@ -203,18 +200,17 @@
                         <h3 class="title">Expériences Professionnelles</h3>
                          <div class="experience-item" th:each="exp : ${experiences}">
                             <div class="text-muted">
-                                <span class="fw-bolder" style="font-size: 13px;">-</span>
-                                <span th:text="${exp.startDate}"></span> - 
-                                <span th:text="${exp.startDate}"></span> |
-                                <span th:text="${exp.country}"></span> -
-                                <span th:text="${exp.city}"></span>
+                                <span th:text="${exp.startDate}" style="text-transform: capitalize;"></span> -
+                                <span th:text="${exp.startDate}"  style="text-transform: capitalize;"></span> |
+                                <span th:text="${exp.country}"  style="text-transform: capitalize;"></span> -
+                                <span th:text="${exp.city}"  style="text-transform: capitalize;"></span>
                             </div>
                             <div class="ps-2 my-4">
                                 <div>
                                   <span class="fw-bolder" th:text="${exp.jobTitle}"></span> | 
                                   <span th:text="${exp.employer}"></span>
                                  </div>
-                                 <div th:text="${exp.description}">
+                                 <div th:utext="${exp.description}">
                                   
                                  </div>
                             </div>

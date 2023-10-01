@@ -22,6 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 
 @RequestMapping("/api/v1")
@@ -35,6 +37,11 @@ public class PDFGeneratorController {
 
     @RequestMapping("/pdf")
     public ResponseEntity<InputStreamResource> savePDF(@RequestBody Resume resume) throws IOException, DocumentException {
+
+        resume.getExperiences().forEach(exp ->{
+            exp.setStartDate(dateUtil(exp.getStartDate()));
+            exp.setEndDate(dateUtil(exp.getEndDate()));
+        });
 
         Context context = new Context();
         // set variables
@@ -52,7 +59,6 @@ public class PDFGeneratorController {
         String xHtml = xhtmlConvert(htmlContentToRender);
 
         ITextRenderer renderer = new ITextRenderer();
-        Rectangle pageSize = PageSize.A4;
         String baseUrl = FileSystems
                 .getDefault()
                 .getPath("src", "main", "resources", "templates")
@@ -97,6 +103,19 @@ public class PDFGeneratorController {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         tidy.parseDOM(inputStream, outputStream);
         return outputStream.toString("UTF-8");
+    }
+
+    private  String dateUtil(String inputDateString){
+        LocalDate date = LocalDate.parse(inputDateString);
+
+        // Create a custom date format
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM yyyy");
+
+        // Format the date as "MMM yyyy"
+        String formattedDate = date.format(outputFormatter);
+
+        // Print the formatted date
+        return formattedDate;
     }
 
 
